@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite2",
-    "path":"sprites/Sprite2/Sprite2.yy",
+    "name":"Sprite_is_standing_still",
+    "path":"sprites/Sprite_is_standing_still/Sprite_is_standing_still.yy",
   },
   "spriteMaskId":null,
   "visible":true,

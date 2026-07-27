@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Новая папка",
-    "path":"folders/Новая папка.yy",
+    "name":"кусочки фона первой игровой локации",
+    "path":"folders/кусочки фона первой игровой локации.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

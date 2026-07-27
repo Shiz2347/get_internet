@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite_ladder3",
+    "path":"sprites/Sprite_ladder3/Sprite_ladder3.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

@@ -85,7 +85,7 @@ if (_ladder_inst != noone) {
         }
        
         // Сход с лестницы в самом низу при касании земли
-        if (place_meeting(x, y + 1, obj_floor) && _key_down) {
+        if (place_meeting(x, y + 1, obj_floor_and_walls) && _key_down) {
             is_climbing = false;
             image_speed = 1;
         }
@@ -131,7 +131,7 @@ if (!is_climbing) {
     }
 
     // --- ПРОВЕРКА ПОЛА ---
-    var _is_on_normal_floor = place_meeting(x, y + 1, obj_floor);
+    var _is_on_normal_floor = place_meeting(x, y + 1, obj_floor_and_walls);
     var _is_on_oneway = false;
 
     // Проверка верхушки лестницы как сквозной платформы (сделал точь-в-точь как твои платформы)
@@ -163,7 +163,7 @@ if (!is_climbing) {
     var _is_on_floor = _is_on_normal_floor || _is_on_oneway || _is_on_ladder_top;
 
     // --- ГОРИЗОНТАЛЬНОЕ ДВИЖЕНИЕ (Твой код) ---
-    if (!place_meeting(x + (_move_x * _speed), y, obj_floor)) {
+    if (!place_meeting(x + (_move_x * _speed), y, obj_floor_and_walls)) {
         x += _move_x * _speed;
     }
 
@@ -176,8 +176,8 @@ if (!is_climbing) {
     }
 
     // Столкновение с обычным полом (Твой код)
-    if (place_meeting(x, y + v_speed, obj_floor)) {
-        while (!place_meeting(x, y + sign(v_speed), obj_floor)) { y += sign(v_speed); }
+    if (place_meeting(x, y + v_speed, obj_floor_and_walls)) {
+        while (!place_meeting(x, y + sign(v_speed), obj_floor_and_walls)) { y += sign(v_speed); }
         v_speed = 0;
     }
     // Столкновение со сквозными платформами (и верхушкой лестницы) при падении
@@ -212,10 +212,10 @@ if (!is_climbing) {
         sprite_index = Sprite_jump;
     } else {
         if (_move_x != 0) {
-            sprite_index = Sprite_walk1;
+            sprite_index = Sprite_walk;
             image_xscale = _move_x;      
         } else {
-            sprite_index = Sprite2;      
+            sprite_index = Sprite_is_standing_still;      
         }
     }
 }

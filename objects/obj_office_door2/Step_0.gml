@@ -10,7 +10,7 @@ if (instance_exists(Object_player) && distance_to_object(Object_player) <= _dist
     
     // Проверяем нажатие "E" на клавиатуре ИЛИ правой кнопки мыши (ПКМ)
     if (keyboard_check_pressed(ord("E")) || mouse_check_button_pressed(mb_right)) {
-        room_goto(Room_game1); // Переносим в новую комнату
+        room_goto(Room_play_room1); // Переносим в новую комнату
     }
     
 } else {

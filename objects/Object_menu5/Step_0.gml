@@ -3,13 +3,13 @@
 // Проверяем, находится ли курсор мыши над объектом (id - это текущий объект)
 if (position_meeting(mouse_x, mouse_y, id)) {
     // Если мышка НАВЕДЕНА
-    sprite_index = Sprite_gal_menu; // Светится
+    sprite_index = Sprite_back_button_Art_Gallery2; // Светится
     
     // ДОПОЛНИТЕЛЬНО: Если нажать левую кнопку мыши, переходим в игру
     if (mouse_check_button_pressed(mb_left)) {
-        room_goto(Room0); // Замени Room_Game на название твоей первой игровой комнаты
+        room_goto(Room_menu); // Замени Room_Game на название твоей первой игровой комнаты
     }
 } else {
     // Если мышка НЕ наведена
-    sprite_index = Sprite_gal_menu_1; // Обычный спрайт
+    sprite_index = Sprite_back_button_Art_Gallery1; // Обычный спрайт
 }

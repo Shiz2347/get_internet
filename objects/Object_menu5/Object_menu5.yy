@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite_gal_menu_1",
-    "path":"sprites/Sprite_gal_menu_1/Sprite_gal_menu_1.yy",
+    "name":"Sprite_back_button_Art_Gallery1",
+    "path":"sprites/Sprite_back_button_Art_Gallery1/Sprite_back_button_Art_Gallery1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

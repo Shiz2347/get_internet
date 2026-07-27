@@ -7,7 +7,7 @@ if (position_meeting(mouse_x, mouse_y, id)) {
     
     // ДОПОЛНИТЕЛЬНО: Если нажать левую кнопку мыши, переходим в игру
     if (mouse_check_button_pressed(mb_left)) {
-        room_goto(Room_game1); // Замени Room_Game на название твоей первой игровой комнаты
+        room_goto(Room_play_room1); // Замени Room_Game на название твоей первой игровой комнаты
     }
 } else {
     // Если мышка НЕ наведена
