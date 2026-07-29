@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite98",
-    "path":"sprites/Sprite98/Sprite98.yy",
+    "name":"sprite_visual_element_a_door",
+    "path":"sprites/sprite_visual_element_a_door/sprite_visual_element_a_door.yy",
   },
   "spriteMaskId":null,
   "visible":false,
