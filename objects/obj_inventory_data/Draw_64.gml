@@ -1,6 +1,6 @@
 var _count = array_length(inventory_slots);
 
-var _base_x = 25; 
+var _base_x = 20; 
 var _base_y = 15; 
 var _step_x = 40; 
 

@@ -30,7 +30,7 @@
     {"id":{"name":"obj_background_assembler","path":"objects/obj_background_assembler/obj_background_assembler.yy",},},
     {"id":{"name":"obj_floor_and_walls","path":"objects/obj_floor_and_walls/obj_floor_and_walls.yy",},},
     {"id":{"name":"obj_inventory_data","path":"objects/obj_inventory_data/obj_inventory_data.yy",},},
-    {"id":{"name":"Obj_inventory_VISUAL","path":"objects/Obj_inventory_VISUAL/Obj_inventory_VISUAL.yy",},},
+    {"id":{"name":"obj_inventory_VISUAL","path":"objects/obj_inventory_VISUAL/obj_inventory_VISUAL.yy",},},
     {"id":{"name":"Obj_ladder","path":"objects/Obj_ladder/Obj_ladder.yy",},},
     {"id":{"name":"Obj_ladder2","path":"objects/Obj_ladder2/Obj_ladder2.yy",},},
     {"id":{"name":"Obj_ladder3","path":"objects/Obj_ladder3/Obj_ladder3.yy",},},

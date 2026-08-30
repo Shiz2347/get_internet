@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"Obj_inventory_VISUAL",
+  "%Name":"obj_inventory_VISUAL",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"Obj_inventory_VISUAL",
+  "name":"obj_inventory_VISUAL",
   "overriddenProperties":[],
   "parent":{
     "name":"объекты",

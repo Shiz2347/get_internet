@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"спрайты",
-    "path":"folders/спрайты.yy",
+    "name":"предметы в инвентаре",
+    "path":"folders/спрайты/предметы в инвентаре.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
