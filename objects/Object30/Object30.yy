@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"Object_grass_covered_platform",
+  "%Name":"Object30",
   "eventList":[],
   "managed":true,
-  "name":"Object_grass_covered_platform",
+  "name":"Object30",
   "overriddenProperties":[],
   "parent":{
     "name":"объекты",
@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite_grass_covered_platform",
-    "path":"sprites/Sprite_grass_covered_platform/Sprite_grass_covered_platform.yy",
+    "name":"Sprite114",
+    "path":"sprites/Sprite114/Sprite114.yy",
   },
   "spriteMaskId":null,
   "visible":true,

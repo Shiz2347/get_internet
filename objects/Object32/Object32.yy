@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"Object_visual_element_a_",
+  "%Name":"Object32",
   "eventList":[],
   "managed":true,
-  "name":"Object_visual_element_a_",
+  "name":"Object32",
   "overriddenProperties":[],
   "parent":{
     "name":"объекты",
@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite_visual_element_a_",
-    "path":"sprites/Sprite_visual_element_a_/Sprite_visual_element_a_.yy",
+    "name":"Sprite112",
+    "path":"sprites/Sprite112/Sprite112.yy",
   },
   "spriteMaskId":null,
   "visible":true,
