@@ -7,90 +7,157 @@ var _key_jump = keyboard_check_pressed(vk_space);
 var _left = keyboard_check(ord("A"));
 var _right = keyboard_check(ord("D"));
 
+// УПРАВЛЕНИЕ ЗАЦЕПОМ И СХОДОМ
+var _key_grab = keyboard_check(ord("Q")) || keyboard_check(ord("W")) || keyboard_check(ord("E"));
+var _key_release = keyboard_check_pressed(vk_lshift); 
+
 var _move_x = _right - _left;
 
 var _speed = 12; // Скорость бега
 var _jump_power = -20; // Высота обычного прыжка
 var _grv = 1; // Гравитация
 
+// --- НАСТРОЙКИ ДЛЯ ЗАЦЕПОВ ---
+var _hook_jump_power_y = -18; // Сила прыжка с зацепа вверх
+var _hook_jump_power_x = 14;  // Сила отталкивания от зацепа вбок
+
+// НАСТРОЙКА РАДИУСА ЗАЦЕПА (в пикселях)
+var _hook_grab_radius = 80; 
+
+// РАЗНИЦА СМЕЩЕНИЯ ТОЧЕК ORIGIN ТУТ (в пикселях)
+// На сколько опустить игрока при отпускании зацепа, чтобы компенсировать Origin в ногах.
+// Поиграй с этим числом (60, 65, 70, 75), чтобы падение шло идеально из рук!
+var _origin_offset_y = 200; 
+
 // --- РЕДАКТИРУЙ ВЫСОТУ ВЫТАЛКИВАНИЯ ТУТ ---
-// Чем больше цифра (со знаком минус), тем выше подпрыгнет игрок, когда долезет до верха.
-// Например: -8 — низкий подскок, -12 — средний, -16 — высокий. Поиграй с этим значением!
 var _ladder_exit_impulse = -40; 
 
-
-// СПИСОК ВСЕХ ТВОИХ ЛЕСТНИЦ (1, 2, 3, 4)
+// СПИСОК ВСЕХ ТВОИХ ЛЕСТНИЦ И ЗАЦЕПОВ
 var _ladder_types = [Obj_ladder, Obj_ladder2, Obj_ladder3, Obj_ladder4];
-var _ladder_inst = noone;
+var _hook_types = [Obj_hook_point]; 
 
-// Ищем, касается ли игрок хотя бы одной из лестниц
+var _ladder_inst = noone;
+var _hook_inst = noone;
+
+// Ищем, касается ли игрок лестницы
 for (var i = 0; i < array_length(_ladder_types); i++) {
     var _check = instance_place(x, y, _ladder_types[i]);
     if (_check != noone) { _ladder_inst = _check; break; }
 }
 
+// Поиск зацепа в увеличенном радиусе вокруг игрока
+for (var i = 0; i < array_length(_hook_types); i++) {
+    var _nearest_hook = instance_nearest(x, y, _hook_types[i]);
+    if (_nearest_hook != noone) {
+        if (distance_to_object(_nearest_hook) <= _hook_grab_radius) {
+            _hook_inst = _nearest_hook;
+            break;
+        }
+    }
+}
+
 
 // ==========================================
-// 2. ЛОГИКА НА ЛЕСТНИЦЕ
+// 2. ЛОГИКА НА ЛЕСТНИЦЕ ИЛИ ЗАЦЕПЕ
 // ==========================================
-if (_ladder_inst != noone) {
+
+if (!variable_instance_exists(id, "grabbed_hook")) { grabbed_hook = noone; }
+
+// Хватаемся за объект при нажатии Q, W или E
+if (_hook_inst != noone && _key_grab && !is_climbing && grabbed_hook == noone) {
+    is_climbing = true;
+    grabbed_hook = _hook_inst; 
+    v_speed = 0;
+}
+
+// Если мы зафиксированы на зацепе
+if (is_climbing && grabbed_hook != noone && instance_exists(grabbed_hook)) {
+    
+    // Сначала разворачиваем персонажа в сторону нажатия кнопок A/D
+    if (_move_x != 0) {
+        image_xscale = _move_x;
+    }
+    
+    // Базово фиксируем позицию по центру зацепа
+    x = grabbed_hook.x;
+    y = grabbed_hook.y;
+    
+    // ЕСЛИ СМОТРИТ ВЛЕВО — СДВИГАЕМ ТЕЛО ВПРАВО, ЧТОБЫ РУКА ОСТАЛАСЬ НА КОЛЬЦЕ
+    if (image_xscale == -1) {
+        x += 37; 
+    }
+    
+    // --- АНИМАЦИЯ ВИСЕНИЯ ---
+    sprite_index = Sprite_hang; 
+    image_speed = 1;            
+    
+    // СПРЫГНУТЬ ВНИЗ на Shift — мгновенно роняем игрока вниз с учетом разницы Origin
+    if (_key_release) {
+        is_climbing = false;
+        grabbed_hook = noone; 
+        
+        y += _origin_offset_y;      // Сдвигаем координату Y вниз, компенсируя смену точек привязки
+        sprite_index = Sprite_jump; // Включаем спрайт падения (теперь он встанет ровно)
+        v_speed = 1;                // Задаем начальный импульс падения
+    }
+    
+    // ОТПРЫГНУТЬ (на Пробел)
+    if (_key_jump) {
+        is_climbing = false;
+        grabbed_hook = noone; 
+        
+        y += _origin_offset_y;      // Сдвигаем Y вниз, чтобы прыжок шел визуально из правильной точки
+        v_speed = _hook_jump_power_y; 
+        
+        if (_move_x != 0) {
+            x += _move_x * 8; 
+            x += _move_x * _hook_jump_power_x; 
+        }
+    }
+}
+// Логика обычной лестницы
+else if (_ladder_inst != noone) {
+    grabbed_hook = noone; 
    
-    // Если нажали "Вверх" — хватаемся за лестницу
     if (_key_up && !is_climbing) {
         is_climbing = true;
         v_speed = 0; 
     }
    
     if (is_climbing) {
-        // Ровняем игрока строго по центру лестницы
         x = _ladder_inst.x;
        
-        // Движение по лестнице вверх/вниз
         if (_key_up) { y -= climb_speed; }
         if (_key_down) { y += climb_speed; }
        
-        // --- АНИМАЦИЯ НА ЛЕСТНИЦЕ ---
-        sprite_index = Sprite_climb;
+        sprite_index = Sprite_climb; 
         
-        if (_key_up) {
-            image_speed = 1; // Вверх — вперед
-        } else if (_key_down) {
-            image_speed = -1; // Вниз — назад
-        } else {
-            image_speed = 0; // Стоим — пауза
-        }
+        if (_key_up) { image_speed = 1; } 
+        else if (_key_down) { image_speed = -1; } 
+        else { image_speed = 0; }
        
-        // ПРОВЕРКА ВЕРХУШКИ ЛЕСТНИЦЫ:
-        // Проверяем, есть ли лестница выше текущей
         var _ladder_above = noone;
         for (var i = 0; i < array_length(_ladder_types); i++) {
             var _check_above = instance_place(x, y - climb_speed, _ladder_types[i]);
             if (_check_above != noone) { _ladder_above = _check_above; break; }
         }
         
-        // Если это самый верх (выше лестниц нет)
         if (_ladder_above == noone) {
-            // Если ноги игрока подошли к верхнему краю лестницы
             if (y <= _ladder_inst.bbox_top + climb_speed) {
-                is_climbing = false; // Отключаем лестницу навсегда для этого подъема
-                
-                // Перемещаем игрока чуть выше края, чтобы он гарантированно отлепился от лестницы
+                is_climbing = false;
                 y = _ladder_inst.bbox_top - 5; 
-                
-                // Даем тот самый импульс автоматического выталкивания!
                 v_speed = _ladder_exit_impulse; 
-                
                 image_speed = 1;
             }
         }
        
-        // Сход с лестницы в самом низу при касании земли
-        if (place_meeting(x, y + 1, obj_floor_and_walls) && _key_down) {
+        // Спрыгивание с лестницы на Shift
+        if (_key_release || (place_meeting(x, y + 1, obj_floor_and_walls) && _key_down)) {
             is_climbing = false;
             image_speed = 1;
+            v_speed = 1;
         }
        
-        // Отпрыгивание в сторону на Пробел
         if (_key_jump) {
             is_climbing = false;
             image_speed = 1;
@@ -105,6 +172,7 @@ if (_ladder_inst != noone) {
 } else {
     if (is_climbing) {
         is_climbing = false;
+        grabbed_hook = noone;
         image_speed = 1;
     }
 }
@@ -115,7 +183,6 @@ if (_ladder_inst != noone) {
 // ==========================================
 if (!is_climbing) {
     
-    // Вход на лестницу сверху вниз (если стоим над ней и жмем S)
     if (_key_down) {
         var _ladder_below = noone;
         for (var i = 0; i < array_length(_ladder_types); i++) {
@@ -130,11 +197,9 @@ if (!is_climbing) {
         }
     }
 
-    // --- ПРОВЕРКА ПОЛА ---
     var _is_on_normal_floor = place_meeting(x, y + 1, obj_floor_and_walls);
     var _is_on_oneway = false;
 
-    // Проверка верхушки лестницы как сквозной платформы (сделал точь-в-точь как твои платформы)
     var _ladder_floor_check = noone;
     for (var i = 0; i < array_length(_ladder_types); i++) {
         var _check_floor = instance_place(x, y + 1, _ladder_types[i]);
@@ -143,13 +208,11 @@ if (!is_climbing) {
     
     var _is_on_ladder_top = false;
     if (_ladder_floor_check != noone && v_speed >= 0) {
-        // Если наши ноги опускаются на верхнюю грань лестницы
         if ((y - v_speed) <= _ladder_floor_check.bbox_top + 1) {
             _is_on_ladder_top = true;
         }
     }
 
-    // Твой родной код проверки сквозных платформ
     if (v_speed >= 0) {
         var _plat = instance_position(x, bbox_bottom + 1, Obj_oneway_platform);
         if (_plat == noone) { _plat = instance_position(x, bbox_bottom + 1, Obj_oneway_platform2); }
@@ -159,15 +222,12 @@ if (!is_climbing) {
         }
     }
 
-    // Теперь верхушка лестницы — это полноценная сквозная платформа!
     var _is_on_floor = _is_on_normal_floor || _is_on_oneway || _is_on_ladder_top;
 
-    // --- ГОРИЗОНТАЛЬНОЕ ДВИЖЕНИЕ (Твой код) ---
     if (!place_meeting(x + (_move_x * _speed), y, obj_floor_and_walls)) {
         x += _move_x * _speed;
     }
 
-    // --- ВЕРТИКАЛЬНОЕ ДВИЖЕНИЕ И ПРЫЖОК ---
     v_speed += _grv;
 
     if (_is_on_floor && _key_jump) { 
@@ -175,12 +235,10 @@ if (!is_climbing) {
         _is_on_floor = false;
     }
 
-    // Столкновение с обычным полом (Твой код)
     if (place_meeting(x, y + v_speed, obj_floor_and_walls)) {
         while (!place_meeting(x, y + sign(v_speed), obj_floor_and_walls)) { y += sign(v_speed); }
         v_speed = 0;
     }
-    // Столкновение со сквозными платформами (и верхушкой лестницы) при падении
     else if (v_speed > 0) {
         var _plat = instance_position(x, bbox_bottom + v_speed, Obj_oneway_platform);
         if (_plat == noone) { _plat = instance_position(x, bbox_bottom + v_speed, Obj_oneway_platform2); }
@@ -192,7 +250,6 @@ if (!is_climbing) {
                 _is_on_floor = true;
             }
         }
-        // Точно такая же проверка для приземления на верхушку лестницы сверху
         else if (_ladder_floor_check != noone) {
             if ((y - v_speed) <= _ladder_floor_check.bbox_top + 1) {
                 y = _ladder_floor_check.bbox_top;
@@ -202,10 +259,8 @@ if (!is_climbing) {
         }
     }
 
-    // Перемещаем игрока
     y += v_speed;
 
-    // --- АНИМАЦИЯ НА ЗЕМЛЕ (Твой код) ---
     image_speed = 1; 
     
     if (!_is_on_floor) {

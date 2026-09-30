@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"Object28",
+  "%Name":"Obj_hook_point",
   "eventList":[],
   "managed":true,
-  "name":"Object28",
+  "name":"Obj_hook_point",
   "overriddenProperties":[],
   "parent":{
     "name":"объекты",
