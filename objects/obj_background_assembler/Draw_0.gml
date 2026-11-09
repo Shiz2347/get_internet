@@ -1,5 +1,7 @@
-// 1. НАСТРОЙКИ СЕТКИ (теперь 7 кусочков в ширину!)
+// 1. НАСТРОЙКИ СЕТКИ И СМЕЩЕНИЯ
 var cols = 7;               // Максимум 7 кусочков в одной горизонтальной полосе
+var start_x = 0;        // Сдвиг всей сетки вправо по X
+var start_y = 0;        // Сдвиг всей сетки вниз по Y
 
 // Автоматически берем точную ширину и высоту из первого спрайта
 var chunk_width = sprite_get_width(___document_0_1);   
@@ -20,12 +22,11 @@ var sprites = [
 
 // 3. ЦИКЛ ОТРИСОВКИ СЕТКИ
 for (var i = 0; i < 63; i++) {
-    // Магия деления: остаток от деления на 7 всегда будет от 0 до 6. Это наши колонки.
     var col = i % cols;       
-    var row = i div cols;     // Целочисленное деление на 7 дает номер строки (от 0 до 8)
+    var row = i div cols;     
     
-    var xx = col * chunk_width;
-    var yy = row * chunk_height;
+    var xx = start_x + (col * chunk_width);
+    var yy = start_y + (row * chunk_height);
     
     draw_sprite(sprites[i], 0, xx, yy);
 }
