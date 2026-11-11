@@ -1,8 +1,14 @@
-// В событии CREATE объекта obj_inventory_data:
+inventory_slots = array_create(0); // Список названий подобранных предметов
+max_slots = 5;
 
-inventory_slots = []; // Твой массив инвентаря
+// Сюда вписываешь реальные иконки, которые уже есть в проекте
+keep_icons = [spr_icon_coin, spr_icon_coin2];
 
-// МАГИЧЕСКАЯ СТРОКА: Заставляем GameMaker не удалять иконки при сборке игры
-if (false) {
-    var _keep_assets = [spr_icon_coin]; 
+// Универсальная функция подбора (ее вызывают сами предметы)
+function try_pickup(_item_name) {
+    if (array_length(inventory_slots) < max_slots) {
+        array_push(inventory_slots, _item_name);
+        return true; // Подобрали успешно
+    }
+    return false; // Места нет
 }

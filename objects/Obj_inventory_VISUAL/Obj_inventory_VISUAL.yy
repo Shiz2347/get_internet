@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite_inventory",
-    "path":"sprites/Sprite_inventory/Sprite_inventory.yy",
+    "name":"Sprite129_1",
+    "path":"sprites/Sprite129_1/Sprite129_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

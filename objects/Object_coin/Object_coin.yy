@@ -2,6 +2,7 @@
   "$GMObject":"",
   "%Name":"Object_coin",
   "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
@@ -30,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite_coin",
-    "path":"sprites/Sprite_coin/Sprite_coin.yy",
+    "name":"spr_icon_coin",
+    "path":"sprites/spr_icon_coin/spr_icon_coin.yy",
   },
   "spriteMaskId":null,
   "visible":true,

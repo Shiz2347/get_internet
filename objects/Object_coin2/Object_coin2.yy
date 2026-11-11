@@ -1,9 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"Obj_hook_point",
-  "eventList":[],
+  "%Name":"Object_coin2",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"Obj_hook_point",
+  "name":"Object_coin2",
   "overriddenProperties":[],
   "parent":{
     "name":"объекты",
@@ -28,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite111",
-    "path":"sprites/Sprite111/Sprite111.yy",
+    "name":"spr_icon_coin2",
+    "path":"sprites/spr_icon_coin2/spr_icon_coin2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

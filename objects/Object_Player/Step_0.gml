@@ -34,7 +34,7 @@ var _ladder_exit_impulse = -40;
 
 // СПИСОК ВСЕХ ТВОИХ ЛЕСТНИЦ И ЗАЦЕПОВ
 var _ladder_types = [Obj_ladder, Obj_ladder2, Obj_ladder3, Obj_ladder4];
-var _hook_types = [Obj_hook_point]; 
+var _hook_types = [Object_hook_point]; 
 
 var _ladder_inst = noone;
 var _hook_inst = noone;
